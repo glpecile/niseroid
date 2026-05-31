@@ -12,7 +12,7 @@
     <string name="stop">Остановить</string>
     <string name="none">Нет</string>
     <string name="directory">Каталог</string>
-    <string name="display_filter">Фильтр изображения</string>
+    <string name="display_filter">Фильтр отображения</string>
     <string name="roms">ROM\'ы</string>
     <string name="ok">ОК</string>
     <string name="cancel">Отмена</string>
@@ -22,9 +22,9 @@
     <string name="back">Назад</string>
     <string name="close">Закрыть</string>
     <string name="game_page_search_suggestion">Поиск игр</string>
-    <string name="settings_category_general">Общие</string>
+    <string name="settings_category_general">Общее</string>
     <string name="settings_category_input">Ввод</string>
-    <string name="settings_category_misc">Прочее</string>
+    <string name="settings_category_misc">Разное</string>
     <string name="settings_title_enable_autosave">Автосохранение</string>
     <string name="settings_description_enable_autosave">Сохранять состояние при выходе через меню игры</string>
     <string name="settings_title_enable_touch_feedback">Вибрация при нажатии</string>
