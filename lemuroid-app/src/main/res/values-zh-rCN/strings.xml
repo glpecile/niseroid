@@ -32,7 +32,7 @@
     <string name="settings_title_hd_quality">高清模式</string>
     <string name="settings_title_maximum_cache_usage">缓存大小限制</string>
     <string name="settings_title_hd_mode">高清模式</string>
-    <string name="settings_description_hd_mode">使用\'后处理提升\'滤镜</string>
+    <string name="settings_description_hd_mode">使用后处理提升滤镜</string>
     <string name="settings_description_hd_quality">调整高清模式的质量</string>
     <string name="settings_title_immersive_mode">沉浸模式</string>
     <string name="settings_description_immersive_mode">动态颜色基于游戏视觉背景</string>
@@ -90,8 +90,8 @@
     <string name="home_empty_message">Lemuroid 需要扫描一个包含 ROM 文件的目录。\n这可能需要几分钟的时间。</string>
     <string name="home_empty_action">选择目录</string>
     <string name="home_notification_desmume_deprecated_title">Désmume 即将退出</string>
-    <string name="home_notification_desmume_deprecated_message">在游戏中保存，切换到melondDS，进度将会传输。保存状态将保持与 DeSmuME 的绑定。</string>
-    <string name="home_notification_desmume_deprecated_action">切换到熔化</string>
+    <string name="home_notification_desmume_deprecated_message">在游戏中保存，切换到 melondDS，进度将会传输。保存状态将保持与 DeSmuME 的绑定。</string>
+    <string name="home_notification_desmume_deprecated_action">切换到 melondDS</string>
     <string name="game_menu_save">保存</string>
     <string name="game_menu_load">载入</string>
     <string name="game_menu_restart">重新开始</string>
