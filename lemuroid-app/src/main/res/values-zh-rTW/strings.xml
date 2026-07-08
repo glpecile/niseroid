@@ -34,6 +34,8 @@
     <string name="settings_title_hd_mode">高清模式</string>
     <string name="settings_description_hd_mode">應用後處理升頻濾鏡</string>
     <string name="settings_description_hd_quality">調整高清模式的質量</string>
+    <string name="settings_title_immersive_mode">沉浸模式</string>
+    <string name="settings_description_immersive_mode">基於遊戲畫面動態調整背景顏色</string>
     <string name="settings_title_gamepad_settings">外部設備</string>
     <string name="settings_description_gamepad_settings">配置外接遊戲手把和鍵盤 </string>
     <string name="settings_retropad_button_name">%1$s 鍵</string>
@@ -43,6 +45,7 @@
     <string name="settings_gamepad_title_game_menu">主選單</string>
     <string name="settings_title_open_cores_selection">模擬器核心</string>
     <string name="settings_description_open_cores_selection">選擇模擬器所要使用的核心</string>
+    <string name="settings_core_selection_ds_info">DeSmuME 已被棄用，將在接下來的更新中移除。請在遊戲內儲存進度，然後切換到 melonDS。遊戲內存檔將在 melonDS 中自動加載，但存檔狀態只能與創建它們的核心一起使用。</string>
     <string name="settings_title_display_bios_info">BIOS</string>
     <string name="settings_description_display_bios_info">顯示偵測到能支援的 BIOS 檔</string>
     <string name="settings_bios_category_detected">已偵測到</string>
@@ -86,6 +89,9 @@
     <string name="home_empty_title">選擇 ROMs 資料夾</string>
     <string name="home_empty_message">Lemuroid 需要掃描整個 ROM 檔案資料夾。\n這可能需要幾分鐘的時間。</string>
     <string name="home_empty_action">選擇資料夾</string>
+    <string name="home_notification_desmume_deprecated_title">DeSmuME即將停用</string>
+    <string name="home_notification_desmume_deprecated_message">在遊戲內儲存後，切換到 melonDS 以保留遊戲進度。存檔狀態無法轉移，只能在 DeSmuME 中使用。</string>
+    <string name="home_notification_desmume_deprecated_action">切換到 melonDS</string>
     <string name="game_menu_save">儲存進度</string>
     <string name="game_menu_load">讀取進度</string>
     <string name="game_menu_restart">重新啟動</string>
@@ -97,9 +103,12 @@
     <string name="game_menu_mute_audio">靜音</string>
     <string name="game_menu_fast_forward">快進</string>
     <string name="game_menu_change_disk_disk">磁碟 %1$s</string>
+    <string name="game_menu_tilt_sensor">傾斜感測器</string>
     <string name="game_loading_preparing_game">設置遊戲中…</string>
     <string name="game_toast_settings_button_using_gamepad">檢測到遊戲控制器。 請至設置選單設定 %1$s</string>
     <string name="game_toast_load_state_failed">無法讀取這個遊戲存檔</string>
+    <string name="game_toast_quick_save_loaded">已快速載入</string>
+    <string name="game_toast_quick_save_saved">已快速保存</string>
     <string name="empty_view_default">沒有任何項目</string>
     <string name="core_settings_title">核心設定</string>
     <string name="core_settings_category_preferences">偏好設定</string>
