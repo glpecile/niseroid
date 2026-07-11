@@ -122,9 +122,9 @@
     <string name="save_sync_notification_message">Это может занять несколько минут</string>
     <string name="game_running_notification_title_alternative">Игра запущена</string>
     <string name="game_running_notification_message">Обязательно сохраните свой прогресс</string>
-    <string name="game_loader_error_gl_incompatible">Это ядро требует версию OpenGL ES, которая не поддерживается вашим устройством.</string>
+    <string name="game_loader_error_gl_incompatible">Это ядро требует версии OpenGL ES, которая не поддерживается вашим устройством.</string>
     <string name="game_loader_error_load_game">При загрузке игры произошла ошибка. Убедитесь, что ROM поддерживается Lemuroid и запустите повторное сканирование игр.</string>
-    <string name="game_loader_error_save">Произошла ошибка с вашим файлом сохранения. Если проблема не исчезает, попробуйте отключить автосохранение.</string>
+    <string name="game_loader_error_save">Что-то пошло не так с вашим файлом сохранения. Если проблема не исчезает, попробуйте отключить автосохранение.</string>
     <string name="game_loader_error_unsupported_architecture">Это ядро не поддерживается вашим устройством.</string>
     <string name="game_loader_error_generic">Произошла ошибка. Попробуйте следующее:\n
         \n\u2022 Отключите автосохранение и перезапустите игру
@@ -151,7 +151,7 @@
     <string name="shortcut_binding_update_title">Привязка \"Сочетания клавиш %1$s\"</string>
     <string name="shortcut_binding_update_description">Нажмите первую, затем вторую кнопки, чтобы назначить сочетание клавиш для действия «%1$s»</string>
     <string name="tv_search_results">Игры</string>
-    <string name="tv_game_message_missing_gamepad">Для игры необходимы контроллеры. Пожалуйста, подключите один.</string>
+    <string name="tv_game_message_missing_gamepad">Для игры необходимы геймпады. Пожалуйста, подключите один.</string>
     <string name="game_edit_touch_controls_error_not_visible">Отключите геймпад для настройки экранного управления</string>
     <string name="game_interactory_busy">Дождитесь завершения текущих операций</string>
     <string name="game_interactor_notification_permission_required">Для продолжения включите уведомления на главном экране</string>
@@ -176,8 +176,8 @@
     <string name="shader_filter_names_crt">ЭЛТ</string>
     <string name="shader_filter_names_lcd">ЖК</string>
     <string name="haptic_feedback_mode_names_none">Нет</string>
-    <string name="haptic_feedback_mode_names_press">Нажать</string>
-    <string name="haptic_feedback_mode_names_press_release">Нажать и отпустить</string>
+    <string name="haptic_feedback_mode_names_press">При нажатии</string>
+    <string name="haptic_feedback_mode_names_press_release">При нажатии и отпускании</string>
     <string name="tilt_configuration_disabled">Откл.</string>
     <string name="tilt_configuration_cross">DPAD</string>
     <string name="tilt_configuration_analog_left">Левый стик</string>
