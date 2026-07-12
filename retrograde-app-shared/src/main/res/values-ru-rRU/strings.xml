@@ -108,7 +108,7 @@
     <string name="value_melonds_mic_input_blow">Имитировать звук</string>
     <string name="value_citra_layout_option_topbottom">Сверху - снизу</string>
     <string name="value_citra_layout_option_sidebyside">Слева - справа</string>
-    <string name="value_desmume_screens_layout_topbottom">Сверху - снизу</string>
+    <string name="value_desmume_screens_layout_topbottom">Сверху - Снизу</string>
     <string name="value_desmume_screens_layout_leftright">Слева - справа</string>
     <string name="value_ppsspp_cpu_core_jit">JIT</string>
     <string name="value_ppsspp_cpu_core_irjit">IR JIT</string>
