@@ -60,7 +60,8 @@ class TVGameMenuActivity : TVBaseSettingsActivity() {
                 intent.extras?.getBoolean(GameMenuContract.EXTRA_AUDIO_ENABLED)
                     ?: throw InvalidParameterException("Missing EXTRA_AUDIO_ENABLED")
 
-            val legacyFastForwardEnabled = intent.extras?.getBoolean(GameMenuContract.EXTRA_FAST_FORWARD, false) ?: false
+            val legacyFastForwardEnabled =
+                intent.extras?.getBoolean(GameMenuContract.EXTRA_FAST_FORWARD, false) ?: false
             val frameSpeed =
                 intent.extras?.getInt(
                     GameMenuContract.EXTRA_FRAME_SPEED,

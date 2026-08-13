@@ -50,8 +50,8 @@ object GameMenuHelper {
         preference?.setValueIndex(selectedIndex)
         preference?.summary =
             (speedLabels.getOrNull(selectedIndex) ?: "") +
-                " - " +
-                screen.context.getString(R.string.game_menu_fast_forward_note)
+            " - " +
+            screen.context.getString(R.string.game_menu_fast_forward_note)
         preference?.setOnPreferenceChangeListener { _, newValue ->
             val speed = (newValue as? String)?.toIntOrNull() ?: 1
             val resultIntent =
