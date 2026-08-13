@@ -188,7 +188,24 @@ class BaseGameScreenViewModel(
                 saves.restoreAutoSaveAsync(it)
             }
         }
+        viewModelScope.launch {
+            retroGameView.waitGLEvent<GLRetroView.GLRetroEvents.FrameRendered>()
+            setFrameSpeed(sharedPreferences.getInt(PREF_FRAME_SPEED, 1))
+            setAudioEnabled(sharedPreferences.getBoolean(PREF_AUDIO_ENABLED, true))
+        }
         return result
+    }
+
+    /** Applies the speed and persists it, so it survives the next session. */
+    fun setFrameSpeed(frameSpeed: Int) {
+        retroGameView.retroGameView?.frameSpeed = frameSpeed
+        sharedPreferences.edit().putInt(PREF_FRAME_SPEED, frameSpeed).apply()
+    }
+
+    /** Applies the mute state and persists it, so it survives the next session. */
+    fun setAudioEnabled(audioEnabled: Boolean) {
+        retroGameView.retroGameView?.audioEnabled = audioEnabled
+        sharedPreferences.edit().putBoolean(PREF_AUDIO_ENABLED, audioEnabled).apply()
     }
 
     suspend fun loadGame(
@@ -270,11 +287,10 @@ class BaseGameScreenViewModel(
 
     fun toggleFastForward() {
         Timber.d("Loading quick save")
-        retroGameView.retroGameView?.apply {
-            val speeds = getFastForwardCycleSpeeds()
-            val currentIndex = speeds.indexOf(frameSpeed).let { if (it >= 0) it else 0 }
-            frameSpeed = speeds[(currentIndex + 1) % speeds.size]
-        }
+        val current = retroGameView.retroGameView?.frameSpeed ?: return
+        val speeds = getFastForwardCycleSpeeds()
+        val currentIndex = speeds.indexOf(current).let { if (it >= 0) it else 0 }
+        setFrameSpeed(speeds[(currentIndex + 1) % speeds.size])
     }
 
     private fun getFastForwardCycleSpeeds(): List<Int> {
@@ -305,6 +321,8 @@ class BaseGameScreenViewModel(
 
     companion object {
         private val DEFAULT_FAST_FORWARD_CYCLE_SPEEDS = listOf(1, 2, 4, 8, 16)
+        private const val PREF_FRAME_SPEED = "niseroid_frame_speed"
+        private const val PREF_AUDIO_ENABLED = "niseroid_audio_enabled"
     }
 
     suspend fun reset() =

@@ -390,34 +390,20 @@ abstract class BaseGameActivity : ImmersiveActivity() {
                 baseGameScreenViewModel.retroGameView.retroGameView?.changeDisk(index)
             }
             if (data?.hasExtra(GameMenuContract.RESULT_ENABLE_AUDIO) == true) {
-                baseGameScreenViewModel.retroGameView.retroGameView?.apply {
-                    this.audioEnabled =
-                        data.getBooleanExtra(
-                            GameMenuContract.RESULT_ENABLE_AUDIO,
-                            true,
-                        )
-                }
+                baseGameScreenViewModel.setAudioEnabled(
+                    data.getBooleanExtra(GameMenuContract.RESULT_ENABLE_AUDIO, true),
+                )
             }
             val hasFrameSpeed = data?.hasExtra(GameMenuContract.RESULT_SET_FRAME_SPEED) == true
             if (hasFrameSpeed) {
-                baseGameScreenViewModel.retroGameView.retroGameView?.apply {
-                    val frameSpeed =
-                        data.getIntExtra(
-                            GameMenuContract.RESULT_SET_FRAME_SPEED,
-                            1,
-                        )
-                    this.frameSpeed = frameSpeed
-                }
+                baseGameScreenViewModel.setFrameSpeed(
+                    data.getIntExtra(GameMenuContract.RESULT_SET_FRAME_SPEED, 1),
+                )
             }
             if (!hasFrameSpeed && data?.hasExtra(GameMenuContract.RESULT_ENABLE_FAST_FORWARD) == true) {
-                baseGameScreenViewModel.retroGameView.retroGameView?.apply {
-                    val fastForwardEnabled =
-                        data.getBooleanExtra(
-                            GameMenuContract.RESULT_ENABLE_FAST_FORWARD,
-                            false,
-                        )
-                    this.frameSpeed = if (fastForwardEnabled) 2 else 1
-                }
+                val fastForwardEnabled =
+                    data.getBooleanExtra(GameMenuContract.RESULT_ENABLE_FAST_FORWARD, false)
+                baseGameScreenViewModel.setFrameSpeed(if (fastForwardEnabled) 2 else 1)
             }
             if (data?.getBooleanExtra(GameMenuContract.RESULT_EDIT_TOUCH_CONTROLS, false) == true) {
                 baseGameScreenViewModel.showEditControls(true)
