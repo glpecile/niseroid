@@ -29,6 +29,7 @@ fun GameMenuHomeScreen(
     navController: NavController,
     gameMenuRequest: GameMenuActivity.GameMenuRequest,
     onResult: KFunction1<Intent.() -> Unit, Unit>,
+    onApply: KFunction1<Intent.() -> Unit, Unit>,
 ) {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         if (gameMenuRequest.coreConfig.statesSupported) {
@@ -91,7 +92,7 @@ fun GameMenuHomeScreen(
             },
             state = rememberMemoryBooleanSettingState(!gameMenuRequest.audioEnabled),
             onCheckedChange = {
-                onResult { putExtra(GameMenuContract.RESULT_ENABLE_AUDIO, !it) }
+                onApply { putExtra(GameMenuContract.RESULT_ENABLE_AUDIO, !it) }
             },
         )
 
@@ -104,6 +105,8 @@ fun GameMenuHomeScreen(
             val selectedIndex =
                 speedValues.indexOf(gameMenuRequest.frameSpeed).let { if (it >= 0) it else 0 }
 
+            val speedState = rememberMemoryIntSettingState(selectedIndex)
+
             LemuroidSettingsList(
                 title = { Text(text = stringResource(id = R.string.game_menu_fast_forward)) },
                 items = speedLabels,
@@ -111,7 +114,7 @@ fun GameMenuHomeScreen(
                 subtitle = {
                     Text(
                         text =
-                            speedLabels[selectedIndex] +
+                            speedLabels[speedState.value] +
                                 " - " +
                                 stringResource(R.string.game_menu_fast_forward_note),
                     )
@@ -122,10 +125,10 @@ fun GameMenuHomeScreen(
                         contentDescription = stringResource(id = R.string.game_menu_fast_forward),
                     )
                 },
-                state = rememberMemoryIntSettingState(selectedIndex),
+                state = speedState,
                 onItemSelected = { index, _ ->
                     val speed = speedValues[index]
-                    onResult {
+                    onApply {
                         putExtra(GameMenuContract.RESULT_SET_FRAME_SPEED, speed)
                         putExtra(GameMenuContract.RESULT_ENABLE_FAST_FORWARD, speed > 1)
                     }
@@ -146,7 +149,7 @@ fun GameMenuHomeScreen(
                 },
                 state = rememberMemoryIntSettingState(gameMenuRequest.currentDisk),
                 onItemSelected = { index, _ ->
-                    onResult { putExtra(GameMenuContract.RESULT_CHANGE_DISK, index) }
+                    onApply { putExtra(GameMenuContract.RESULT_CHANGE_DISK, index) }
                 },
             )
         }
@@ -198,7 +201,7 @@ fun GameMenuHomeScreen(
                 },
                 state = rememberMemoryIntSettingState(selectedIndex),
                 onItemSelected = { index, _ ->
-                    onResult {
+                    onApply {
                         putExtra(
                             GameMenuContract.RESULT_CHANGE_TILT_CONFIG,
                             tiltConfigurationEntries[index].configuration,

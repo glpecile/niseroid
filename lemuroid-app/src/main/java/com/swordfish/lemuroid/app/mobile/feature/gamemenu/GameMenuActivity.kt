@@ -187,7 +187,7 @@ class GameMenuActivity : RetrogradeComponentActivity() {
                     exitTransition = { fadeOut() },
                 ) {
                     composable(GameMenuRoute.HOME) {
-                        GameMenuHomeScreen(navController, gameMenuRequest, ::onResult)
+                        GameMenuHomeScreen(navController, gameMenuRequest, ::onResult, ::onApply)
                     }
                     composable(GameMenuRoute.SAVE) {
                         GameMenuStatesScreen(
@@ -262,10 +262,19 @@ class GameMenuActivity : RetrogradeComponentActivity() {
         }
     }
 
+    /**
+     * Results are only delivered to the game when this activity finishes, so we accumulate them
+     * here. That lets toggles like mute or fast forward be applied without closing the panel.
+     */
+    private val pendingResult = Intent()
+
+    private fun onApply(block: Intent.() -> Unit) {
+        pendingResult.block()
+        setResult(RESULT_OK, pendingResult)
+    }
+
     private fun onResult(block: Intent.() -> Unit) {
-        val resultIntent = Intent()
-        resultIntent.block()
-        setResult(RESULT_OK, resultIntent)
+        onApply(block)
         finish()
     }
 
