@@ -1,11 +1,18 @@
-# Lemuroid
+# Niseroid
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-     alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/com.swordfish.lemuroid/)
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-     alt="Get it on Google Play"
-     height="80">](https://play.google.com/store/apps/details?id=com.swordfish.lemuroid)
+A personal fork of [Lemuroid](https://github.com/Swordfish90/Lemuroid) with a handful of quality-of-life
+changes. Installs alongside the original (different application id), black icon, cyan accent.
+
+**Grab the APK from [Releases](https://github.com/glpecile/Niseroid/releases).**
+
+### What's different
+
+- **Multi-speed fast forward (1x-16x)** in the game menu — [Lemuroid#1115](https://github.com/Swordfish90/Lemuroid/pull/1115) by [@mdevolde](https://github.com/mdevolde), cherry-picked.
+- **Fast forward and mute persist between sessions** instead of resetting to 1x / unmuted on every launch.
+- **The game menu stays open** when you toggle mute, fast forward, disk or tilt, so you can change more than one thing per visit. (Mobile menu; the TV menu still closes.)
+- Black launcher icon and a cyan accent color, so it is easy to tell apart from Lemuroid.
+
+Everything below is from upstream Lemuroid.
 
 ## Description
 
