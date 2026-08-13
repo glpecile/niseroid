@@ -286,11 +286,13 @@ class BaseGameScreenViewModel(
     }
 
     fun toggleFastForward() {
-        Timber.d("Loading quick save")
+        Timber.d("Toggling fast forward")
         val current = retroGameView.retroGameView?.frameSpeed ?: return
         val speeds = getFastForwardCycleSpeeds()
         val currentIndex = speeds.indexOf(current).let { if (it >= 0) it else 0 }
-        setFrameSpeed(speeds[(currentIndex + 1) % speeds.size])
+        val speed = speeds[(currentIndex + 1) % speeds.size]
+        setFrameSpeed(speed)
+        sideEffects.showToast("${speed}x")
     }
 
     private fun getFastForwardCycleSpeeds(): List<Int> {

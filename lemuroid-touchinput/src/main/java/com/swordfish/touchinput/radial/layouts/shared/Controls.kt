@@ -1,7 +1,6 @@
 package com.swordfish.touchinput.radial.layouts.shared
 
 import android.view.KeyEvent
-import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.swordfish.touchinput.controller.R
@@ -102,14 +101,17 @@ fun SecondaryButtonMenu(settings: TouchControllerSettingsManager.Settings) {
     )
 }
 
+/** Sits in the slot mirroring [SecondaryButtonMenu], which upstream leaves empty. */
 context(PadKitScope, LayoutRadialSecondaryDialsScope)
 @Composable
-fun SecondaryButtonMenuPlaceholder(settings: TouchControllerSettingsManager.Settings) {
-    Box(
+fun SecondaryButtonFastForward(settings: TouchControllerSettingsManager.Settings) {
+    LemuroidControlButton(
         modifier =
             Modifier.radialPosition(
                 -120f - 2f * settings.rotation * TouchControllerSettingsManager.MAX_ROTATION,
             ),
+        id = Id.Key(KeyEvent.KEYCODE_MEDIA_FAST_FORWARD),
+        icon = R.drawable.button_fast_forward,
     )
 }
 

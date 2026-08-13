@@ -169,6 +169,14 @@ class GameViewModelTouchControls(
     }
 
     private fun handleVirtualInputButton(event: InputEvent.Button) {
+        // The fast forward button drives the speed cycle, the core never sees it.
+        if (event.id == KeyEvent.KEYCODE_MEDIA_FAST_FORWARD) {
+            if (event.pressed) {
+                sideEffects.toggleFastForward()
+            }
+            return
+        }
+
         val action = if (event.pressed) KeyEvent.ACTION_DOWN else KeyEvent.ACTION_UP
         retroGameView.retroGameView?.sendKeyEvent(action, event.id)
     }
