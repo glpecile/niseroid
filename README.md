@@ -7,10 +7,10 @@ changes. Installs alongside the original (different application id), black icon,
 
 ### What's different
 
-- **Multi-speed fast forward (1x-16x)** in the game menu — [Lemuroid#1115](https://github.com/Swordfish90/Lemuroid/pull/1115) by [@mdevolde](https://github.com/mdevolde), cherry-picked.
-- **A fast forward button in the touch controls**, in the slot upstream leaves empty opposite the menu button. Tap to cycle through your fast-forward speeds; a toast shows the new one.
+- **Multi-speed fast forward (1x-16x)** in the game menu — based on [Lemuroid#1115](https://github.com/Swordfish90/Lemuroid/pull/1115) by [@mdevolde](https://github.com/mdevolde).
+- **A fast forward button in the touch controls**, in the slot upstream leaves empty opposite the menu button. It toggles between normal speed and the last speed you picked in the game menu; a toast shows which one you switched to.
 - **Fast forward and mute persist between sessions** instead of resetting to 1x / unmuted on every launch.
-- **The game menu stays open** when you toggle mute, fast forward, disk or tilt, so you can change more than one thing per visit. (Mobile menu; the TV menu still closes.)
+- **The game menu stays open** when you toggle mute, fast forward, disk or tilt, so you can change more than one thing per visit, and **closes when you tap outside the panel**. (Mobile menu; the TV menu still closes on every option.)
 - Black launcher icon and a cyan accent color, so it is easy to tell apart from Lemuroid.
 
 Everything below is from upstream Lemuroid.

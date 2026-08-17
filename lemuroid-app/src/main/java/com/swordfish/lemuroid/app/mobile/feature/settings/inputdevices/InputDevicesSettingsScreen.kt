@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.feature.input.GamePadBindingActivity
@@ -20,12 +19,10 @@ import com.swordfish.lemuroid.app.shared.input.InputKey
 import com.swordfish.lemuroid.app.shared.input.ShortcutBindingUpdater
 import com.swordfish.lemuroid.app.shared.input.lemuroiddevice.getLemuroidInputDevice
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidCardSettingsGroup
-import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsListMultiSelect
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsMenuLink
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsPage
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsSwitch
 import com.swordfish.lemuroid.app.utils.android.settings.booleanPreferenceState
-import com.swordfish.lemuroid.app.utils.android.settings.stringsSetPreferenceState
 
 @Composable
 fun InputDevicesSettingsScreen(
@@ -114,30 +111,6 @@ private fun EnabledDeviceCategory(state: InputDevicesSettingsViewModel.State) {
 @Composable
 private fun GeneralOptionsCategory(viewModel: InputDevicesSettingsViewModel) {
     LemuroidCardSettingsGroup(title = { Text(text = stringResource(R.string.settings_gamepad_category_general)) }) {
-        val speedLabels = stringArrayResource(R.array.game_menu_fast_forward_speeds).toList()
-        val speedValues = stringArrayResource(R.array.game_menu_fast_forward_speed_values).toList()
-        val cycleKey = stringResource(R.string.pref_key_fast_forward_cycle_speeds)
-        val defaultCycle = speedValues.toSet()
-        val cycleState = stringsSetPreferenceState(key = cycleKey, default = defaultCycle)
-
-        LemuroidSettingsListMultiSelect(
-            title = { Text(text = stringResource(R.string.settings_fast_forward_cycle_title)) },
-            subtitle = { Text(text = stringResource(R.string.settings_fast_forward_cycle_subtitle)) },
-            entries = speedLabels,
-            entryValues = speedValues,
-            confirmButton = stringResource(R.string.settings_fast_forward_cycle_confirm),
-            state = cycleState,
-            onItemsSelected = { selectedValues ->
-                val mutable = selectedValues.toMutableSet()
-                mutable.add("1")
-                if (mutable.size == 1) {
-                    mutable.add("2")
-                }
-                val enforced = mutable.toSet()
-                cycleState.value = enforced
-            },
-        )
-
         LemuroidSettingsMenuLink(
             title = { Text(text = stringResource(R.string.settings_gamepad_title_reset_bindings)) },
             onClick = { viewModel.resetAllBindings() },

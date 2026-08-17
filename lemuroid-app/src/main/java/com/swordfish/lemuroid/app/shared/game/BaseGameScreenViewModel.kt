@@ -11,7 +11,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.feature.game.GameService
 import com.swordfish.lemuroid.app.mobile.feature.settings.SettingsManager
 import com.swordfish.lemuroid.app.shared.game.viewmodel.GameViewModelInput
@@ -145,6 +144,9 @@ class BaseGameScreenViewModel(
 
     val loadingState = MutableStateFlow(false)
 
+    /** The core only accepts speed and audio changes once it has rendered its first frame. */
+    private var isGameRunning = false
+
     private inline fun withLoading(block: () -> Unit) {
         loadingState.value = true
         block()
@@ -182,6 +184,7 @@ class BaseGameScreenViewModel(
         context: Context,
         lifecycle: LifecycleOwner,
     ): GLRetroView {
+        isGameRunning = false
         val (gameData, result) = retroGameView.createRetroView(context, lifecycle)
         viewModelScope.launch {
             gameData.quickSaveData?.let {
@@ -190,21 +193,33 @@ class BaseGameScreenViewModel(
         }
         viewModelScope.launch {
             retroGameView.waitGLEvent<GLRetroView.GLRetroEvents.FrameRendered>()
+            isGameRunning = true
             setFrameSpeed(sharedPreferences.getInt(PREF_FRAME_SPEED, 1))
             setAudioEnabled(sharedPreferences.getBoolean(PREF_AUDIO_ENABLED, true))
         }
         return result
     }
 
-    /** Applies the speed and persists it, so it survives the next session. */
+    /**
+     * Applies the speed and persists it, so it survives the next session. Any speed above 1x is
+     * also remembered as the target of the fast forward toggle.
+     */
     fun setFrameSpeed(frameSpeed: Int) {
-        retroGameView.retroGameView?.frameSpeed = frameSpeed
-        sharedPreferences.edit().putInt(PREF_FRAME_SPEED, frameSpeed).apply()
+        if (isGameRunning) {
+            retroGameView.retroGameView?.frameSpeed = frameSpeed
+        }
+        val editor = sharedPreferences.edit().putInt(PREF_FRAME_SPEED, frameSpeed)
+        if (frameSpeed > 1) {
+            editor.putInt(PREF_FAST_FORWARD_SPEED, frameSpeed)
+        }
+        editor.apply()
     }
 
     /** Applies the mute state and persists it, so it survives the next session. */
     fun setAudioEnabled(audioEnabled: Boolean) {
-        retroGameView.retroGameView?.audioEnabled = audioEnabled
+        if (isGameRunning) {
+            retroGameView.retroGameView?.audioEnabled = audioEnabled
+        }
         sharedPreferences.edit().putBoolean(PREF_AUDIO_ENABLED, audioEnabled).apply()
     }
 
@@ -285,45 +300,24 @@ class BaseGameScreenViewModel(
         }
     }
 
+    /** Switches between normal speed and the last speed picked in the game menu. */
     fun toggleFastForward() {
         Timber.d("Toggling fast forward")
-        val current = retroGameView.retroGameView?.frameSpeed ?: return
-        val speeds = getFastForwardCycleSpeeds()
-        val currentIndex = speeds.indexOf(current).let { if (it >= 0) it else 0 }
-        val speed = speeds[(currentIndex + 1) % speeds.size]
+        val current = sharedPreferences.getInt(PREF_FRAME_SPEED, 1)
+        val speed =
+            if (current > 1) {
+                1
+            } else {
+                sharedPreferences.getInt(PREF_FAST_FORWARD_SPEED, DEFAULT_FAST_FORWARD_SPEED)
+            }
         setFrameSpeed(speed)
         sideEffects.showToast("${speed}x")
     }
 
-    private fun getFastForwardCycleSpeeds(): List<Int> {
-        val key = appContext.getString(R.string.pref_key_fast_forward_cycle_speeds)
-        val raw =
-            sharedPreferences.getStringSet(
-                key,
-                DEFAULT_FAST_FORWARD_CYCLE_SPEEDS.map { it.toString() }.toSet(),
-            ) ?: emptySet()
-
-        val parsed =
-            raw.mapNotNull { it.toIntOrNull() }
-                .filter { it >= 1 }
-                .distinct()
-                .sorted()
-                .toMutableList()
-
-        if (parsed.isEmpty()) {
-            return DEFAULT_FAST_FORWARD_CYCLE_SPEEDS
-        }
-
-        if (!parsed.contains(1)) {
-            parsed.add(0, 1)
-        }
-
-        return parsed
-    }
-
     companion object {
-        private val DEFAULT_FAST_FORWARD_CYCLE_SPEEDS = listOf(1, 2, 4, 8, 16)
+        private const val DEFAULT_FAST_FORWARD_SPEED = 2
         private const val PREF_FRAME_SPEED = "niseroid_frame_speed"
+        private const val PREF_FAST_FORWARD_SPEED = "niseroid_fast_forward_speed"
         private const val PREF_AUDIO_ENABLED = "niseroid_audio_enabled"
     }
 

@@ -11,6 +11,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -239,7 +241,8 @@ class GameMenuActivity : RetrogradeComponentActivity() {
     @Composable
     private fun SideMenu(content: @Composable () -> Unit) {
         BoxWithConstraints(
-            modifier = Modifier.fillMaxSize(),
+            // Tapping the game behind the panel dismisses it, like a dialog would.
+            modifier = Modifier.fillMaxSize().dismissOnClick { onResult { } },
             contentAlignment = Alignment.CenterEnd,
         ) {
             val panelWidth =
@@ -253,13 +256,24 @@ class GameMenuActivity : RetrogradeComponentActivity() {
                         .padding()
                         .fillMaxHeight()
                         .width(panelWidth)
-                        .clip(MaterialTheme.shapes.large),
+                        .clip(MaterialTheme.shapes.large)
+                        // Swallows taps on empty panel space, which would otherwise dismiss.
+                        .dismissOnClick { },
             ) {
                 Column(modifier = Modifier.fillMaxSize()) {
                     content()
                 }
             }
         }
+    }
+
+    @Composable
+    private fun Modifier.dismissOnClick(onClick: () -> Unit): Modifier {
+        return clickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication = null,
+            onClick = onClick,
+        )
     }
 
     /**
