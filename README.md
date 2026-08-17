@@ -11,6 +11,7 @@ changes. Installs alongside the original (different application id), black icon,
 - **A fast forward button in the touch controls**, in the slot upstream leaves empty opposite the menu button. It toggles between normal speed and the last speed you picked in the game menu; a toast shows which one you switched to.
 - **Fast forward and mute persist between sessions** instead of resetting to 1x / unmuted on every launch.
 - **The game menu stays open** when you toggle mute, fast forward, disk or tilt, so you can change more than one thing per visit, and **closes when you tap outside the panel**. (Mobile menu; the TV menu still closes on every option.)
+- **Import saves** from a folder, under Settings > Advanced settings. Useful to bring over a Lemuroid installation: copy its `Android/data/com.swordfish.lemuroid/files` folder somewhere readable (Downloads, an SD card) and point the importer at it. Existing saves are only replaced when the imported one is newer.
 - Black launcher icon and a cyan accent color, so it is easy to tell apart from Lemuroid.
 
 Everything below is from upstream Lemuroid.

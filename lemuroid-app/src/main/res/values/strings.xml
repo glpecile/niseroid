@@ -59,6 +59,10 @@
     <string name="settings_bios_category_detected">Detected</string>
     <string name="settings_bios_category_not_detected">Supported</string>
 
+    <string name="settings_title_import_saves">Import saves</string>
+    <string name="settings_description_import_saves">Copy saves and save states from a folder holding a copy of another installation\'s files directory</string>
+    <string name="settings_import_saves_result">Imported %1$d files</string>
+    <string name="settings_import_saves_empty">Nothing imported. Pick a folder containing saves, states or state-previews</string>
     <string name="settings_title_reset_settings">Factory reset</string>
     <string name="settings_description_reset_settings">Reset Lemuroid to its factory settings</string>
 

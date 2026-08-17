@@ -1,6 +1,7 @@
 package com.swordfish.lemuroid.app.mobile.feature.settings.advanced
 
 import android.content.Context
+import android.net.Uri
 import android.text.format.Formatter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class AdvancedSettingsViewModel(
     appContext: Context,
@@ -63,5 +65,15 @@ class AdvancedSettingsViewModel(
 
     fun resetAllSettings() {
         settingsInteractor.resetAllSettings()
+    }
+
+    fun importSaves(
+        context: Context,
+        treeUri: Uri,
+        onComplete: (Int) -> Unit,
+    ) {
+        viewModelScope.launch {
+            onComplete(SavesImporter.import(context, treeUri))
+        }
     }
 }

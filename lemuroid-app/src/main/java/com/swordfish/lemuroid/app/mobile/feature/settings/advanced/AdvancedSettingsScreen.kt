@@ -1,5 +1,8 @@
 package com.swordfish.lemuroid.app.mobile.feature.settings.advanced
 
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
@@ -10,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -110,6 +114,7 @@ private fun GeneralSettings(
             title = { Text(text = stringResource(id = R.string.settings_title_direct_game_load)) },
             subtitle = { Text(text = stringResource(id = R.string.settings_description_direct_game_load)) },
         )
+        ImportSavesSetting(viewModel)
         LemuroidSettingsMenuLink(
             title = { Text(text = stringResource(id = R.string.settings_title_reset_settings)) },
             subtitle = { Text(text = stringResource(id = R.string.settings_description_reset_settings)) },
@@ -120,6 +125,30 @@ private fun GeneralSettings(
     if (factoryResetDialogState.value) {
         FactoryResetDialog(factoryResetDialogState, viewModel, navController)
     }
+}
+
+@Composable
+private fun ImportSavesSetting(viewModel: AdvancedSettingsViewModel) {
+    val context = LocalContext.current
+    val launcher =
+        rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { treeUri ->
+            if (treeUri == null) return@rememberLauncherForActivityResult
+            viewModel.importSaves(context, treeUri) { imported ->
+                val message =
+                    if (imported > 0) {
+                        context.getString(R.string.settings_import_saves_result, imported)
+                    } else {
+                        context.getString(R.string.settings_import_saves_empty)
+                    }
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+            }
+        }
+
+    LemuroidSettingsMenuLink(
+        title = { Text(text = stringResource(id = R.string.settings_title_import_saves)) },
+        subtitle = { Text(text = stringResource(id = R.string.settings_description_import_saves)) },
+        onClick = { launcher.launch(null) },
+    )
 }
 
 @Composable
