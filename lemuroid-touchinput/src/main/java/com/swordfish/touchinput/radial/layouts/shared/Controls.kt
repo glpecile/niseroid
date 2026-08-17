@@ -4,6 +4,7 @@ import android.view.KeyEvent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.swordfish.touchinput.controller.R
+import com.swordfish.touchinput.radial.LocalFastForwardEnabled
 import com.swordfish.touchinput.radial.controls.LemuroidControlAnalog
 import com.swordfish.touchinput.radial.controls.LemuroidControlButton
 import com.swordfish.touchinput.radial.settings.TouchControllerSettingsManager
@@ -101,7 +102,10 @@ fun SecondaryButtonMenu(settings: TouchControllerSettingsManager.Settings) {
     )
 }
 
-/** Sits in the slot mirroring [SecondaryButtonMenu], which upstream leaves empty. */
+/**
+ * Sits in the slot mirroring [SecondaryButtonMenu], which upstream leaves empty. The icon points
+ * the way the next press goes: forward while at normal speed, back while fast forwarding.
+ */
 context(PadKitScope, LayoutRadialSecondaryDialsScope)
 @Composable
 fun SecondaryButtonFastForward(settings: TouchControllerSettingsManager.Settings) {
@@ -111,7 +115,12 @@ fun SecondaryButtonFastForward(settings: TouchControllerSettingsManager.Settings
                 -120f - 2f * settings.rotation * TouchControllerSettingsManager.MAX_ROTATION,
             ),
         id = Id.Key(KeyEvent.KEYCODE_MEDIA_FAST_FORWARD),
-        icon = R.drawable.button_fast_forward,
+        icon =
+            if (LocalFastForwardEnabled.current) {
+                R.drawable.button_rewind
+            } else {
+                R.drawable.button_fast_forward
+            },
     )
 }
 

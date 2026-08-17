@@ -41,6 +41,7 @@ import gg.padkit.inputstate.InputState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -147,6 +148,12 @@ class BaseGameScreenViewModel(
     /** The core only accepts speed and audio changes once it has rendered its first frame. */
     private var isGameRunning = false
 
+    private val frameSpeedState = MutableStateFlow(sharedPreferences.getInt(PREF_FRAME_SPEED, 1))
+
+    fun isFastForwarding(): Flow<Boolean> {
+        return frameSpeedState.map { it > 1 }
+    }
+
     private inline fun withLoading(block: () -> Unit) {
         loadingState.value = true
         block()
@@ -205,6 +212,7 @@ class BaseGameScreenViewModel(
      * also remembered as the target of the fast forward toggle.
      */
     fun setFrameSpeed(frameSpeed: Int) {
+        frameSpeedState.value = frameSpeed
         if (isGameRunning) {
             retroGameView.retroGameView?.frameSpeed = frameSpeed
         }

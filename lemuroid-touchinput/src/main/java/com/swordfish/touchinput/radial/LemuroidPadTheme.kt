@@ -68,3 +68,6 @@ val LocalLemuroidPadTheme =
     compositionLocalOf<LemuroidPadTheme> {
         error("LemuroidPadTheme is missing")
     }
+
+/** Whether the game is currently sped up, so the fast forward button can show its state. */
+val LocalFastForwardEnabled = compositionLocalOf { false }
