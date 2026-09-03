@@ -105,15 +105,16 @@ fun SecondaryButtonMenu(settings: TouchControllerSettingsManager.Settings) {
 /**
  * Sits in the slot mirroring [SecondaryButtonMenu], which upstream leaves empty. The icon points
  * the way the next press goes: forward while at normal speed, back while fast forwarding.
+ * Layouts which already use that slot (the DS ones, for mic) pass their own [angle].
  */
 context(PadKitScope, LayoutRadialSecondaryDialsScope)
 @Composable
-fun SecondaryButtonFastForward(settings: TouchControllerSettingsManager.Settings) {
+fun SecondaryButtonFastForward(
+    settings: TouchControllerSettingsManager.Settings,
+    angle: Float = -120f - 2f * settings.rotation * TouchControllerSettingsManager.MAX_ROTATION,
+) {
     LemuroidControlButton(
-        modifier =
-            Modifier.radialPosition(
-                -120f - 2f * settings.rotation * TouchControllerSettingsManager.MAX_ROTATION,
-            ),
+        modifier = Modifier.radialPosition(angle),
         id = Id.Key(KeyEvent.KEYCODE_MEDIA_FAST_FORWARD),
         icon =
             if (LocalFastForwardEnabled.current) {
